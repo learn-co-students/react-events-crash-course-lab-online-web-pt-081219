@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { drawChromeBoiAtCoords, toggleCycling, resize } from './canvasHelpers.js'
+import { EvalSourceMapDevToolPlugin } from 'webpack';
 
 
 export default class ChromeBoisDomain extends Component {
   
   handleMouseMove = (event) => {
+    let x = event.clientX
+    let y = event.clientY
+    drawChromeBoiAtCoords(x, y)
     /* TODO: This method should capture the `x` and `y` coordinates of the mouse
      * from the event and use them to invoke the `drawChromeBoiAtCoords`
      * function that has been provided and is already imported
@@ -12,7 +16,10 @@ export default class ChromeBoisDomain extends Component {
      */
   }
   
-  /* TODO: Create an event handler which, when fired, invokes the provided
+  
+
+  
+    /* TODO: Create an event handler which, when fired, invokes the provided
    * `toggleCycling` function with no arguments. Don't forget the click event
    * listener that should fire it!
    */
@@ -23,10 +30,21 @@ export default class ChromeBoisDomain extends Component {
   /* if the key pressed was 'a', then it should call `resize` with '+'
   /* if the key pressed was 's', then it should call `resize` with '-' 
    */
-  
+ 
+
   render() {
     return (
-      <canvas 
+      <canvas onClick={() => toggleCycling()} 
+      onKeyDown ={(event) => {
+        if (event.key === "a"){
+          resize('+')
+        }
+        else if (event.key === "s"){
+          resize('-')
+        } else {
+
+        }
+      }}
         onMouseMove={this.handleMouseMove}
         width='900'
         height='600'
